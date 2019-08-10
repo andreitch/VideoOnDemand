@@ -20,7 +20,7 @@ namespace VOD.Common.Entities
         public string ImageUrl { get; set; }
 
         [MaxLength(255)]
-        public string MargueeImageUrl { get; set; }
+        public string MarqueeImageUrl { get; set; }
 
         public int InstructorId { get; set; }
         public Instructor Instructore { get; set; }
