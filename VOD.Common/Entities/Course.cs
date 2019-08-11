@@ -23,7 +23,7 @@ namespace VOD.Common.Entities
         public string MarqueeImageUrl { get; set; }
 
         public int InstructorId { get; set; }
-        public Instructor Instructore { get; set; }
+        public Instructor Instructor { get; set; }
         public List<Module> Modules { get; set; }
     }
 }
