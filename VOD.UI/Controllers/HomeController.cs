@@ -7,32 +7,21 @@ using Microsoft.AspNetCore.Identity;
 using VOD.Common.Entities;
 using VOD.UI.Models;
 using VOD.Database.Services;
+using System.Linq;
 
 namespace VOD.UI.Controllers
 {
     public class HomeController : Controller
     {
-        //private IDbReadService _db;
         private SignInManager<VODUser> _signInManager;
 
-        public HomeController(SignInManager<VODUser> signInMgr/*, IDbReadService db*/)
+        public HomeController(SignInManager<VODUser> signInMgr)
         {
             _signInManager = signInMgr;
-            //_db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            /* Testing DbReadService
-            _db.Include<Module, Course>();
-            _db.Include<Download>();
-            var result1 = await _db.SingleAsync<Download>(d => d.Id.Equals(3));
-            var result2 = await _db.GetAsync<Download>(); // Fetch all
-            var result3 = await _db.GetAsync<Download>(d => d.ModuleId.Equals(1));
-            var result4 = await _db.AnyAsync<Download>(d => d.ModuleId.Equals(1)); // True if a record is found
-            */
-
-
             if (!_signInManager.IsSignedIn(User))
                 return RedirectToPage("/Account/Login",
                     new { Area = "Identity" });
