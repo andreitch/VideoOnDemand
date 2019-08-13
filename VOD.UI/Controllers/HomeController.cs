@@ -26,7 +26,7 @@ namespace VOD.UI.Controllers
                 return RedirectToPage("/Account/Login",
                     new { Area = "Identity" });
 
-            return View();
+            return RedirectToAction("Dashboard", "Membership");
         }
 
         public IActionResult Privacy()
