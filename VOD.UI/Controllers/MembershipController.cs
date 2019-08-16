@@ -18,11 +18,13 @@ namespace VOD.UI.Controllers
         private readonly string _userId;
         private readonly IMapper _mapper;
         private readonly IUIReadService _db;
-        public MembershipController(IHttpContextAccessor httpContextAccessor,
-            UserManager<VODUser> userManager, IMapper mapper, IUIReadService db)
+        private SignInManager<VODUser> _signInManager;
+        public MembershipController(IHttpContextAccessor httpContextAccessor, 
+            SignInManager<VODUser> signInMgr, UserManager<VODUser> userManager, IMapper mapper, IUIReadService db)
         {
             var user = httpContextAccessor.HttpContext.User;
             _userId = userManager.GetUserId(user);
+            _signInManager = signInMgr;
             _mapper = mapper;
             _db = db;
         }
@@ -30,6 +32,10 @@ namespace VOD.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
+            if (!_signInManager.IsSignedIn(User))
+                return RedirectToPage("/Account/Login",
+                    new { Area = "Identity" });
+
             var courseDtoObjects = _mapper.Map<List<CourseDTO>>(await _db.GetCourses(_userId));
             var dashboardModel = new DashboardViewModel();
             dashboardModel.Courses = new List<List<CourseDTO>>();
@@ -44,6 +50,10 @@ namespace VOD.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Course(int id)
         {
+            if (!_signInManager.IsSignedIn(User))
+                return RedirectToPage("/Account/Login",
+                    new { Area = "Identity" });
+
             var course = await _db.GetCourse(_userId, id);
             var mappedCourseDTO = _mapper.Map<CourseDTO>(course);
             var mappedInstructorDTO = _mapper.Map<InstructorDTO>(course.Instructor);
@@ -60,6 +70,10 @@ namespace VOD.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Video(int id)
         {
+            if (!_signInManager.IsSignedIn(User))
+                return RedirectToPage("/Account/Login",
+                    new { Area = "Identity" });
+
             var video = await _db.GetVideo(_userId, id);
             var course = await _db.GetCourse(_userId, video.CourseId);
             var videoDTO = _mapper.Map<VideoDTO>(video);
@@ -86,7 +100,9 @@ namespace VOD.UI.Controllers
                     NextVideoId = nextId,
                     PreviousVideoId = previousId,
                     NextVideoTitle = nextTitle,
-                    NextVideoThumbnail = nextThumb
+                    NextVideoThumbnail = nextThumb,
+                    CurrentVideoTitle = video.Title,
+                    CurrentVideoThumbnail = video.Thumbnail
                 }
             };
             return View(videoModel);

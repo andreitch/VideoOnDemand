@@ -17,20 +17,10 @@ namespace VOD.Database.Migrations
 
         public static void Initialize(VODContext context)
         {
-            var description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Quid igitur dubitamus in tota eius natura quaerere quid sit effectum? Quod" +
-                " autem principium officii quaerunt, melius quam Pyrrho; Hanc ergo intuens " +
-                "debet institutum illud quasi signum absolvere. Eorum enim est haec querela" +
-                ", qui sibi cari sunt seseque diligunt. </p><p> Gloriosa ostentatio in cons" +
-                "tituendo summo bono.Paupertas si malum est, mendicus beatus esse nemo pote" +
-                "st, quamvis sit sapiens. Nos cum te, M. <mark> Igitur ne dolorem quidem.</" +
-                "mark></p><p>Scaevola tribunus plebis ferret ad plebem vellentne de ea re q" +
-                "uaeri. <mark> Quid autem habent admirationis, cum prope accesseris?</mark>" +
-                "An dolor longissimus quisque miserrimus, voluptatem non optabiliorem diutu" +
-                "rnitas facit? An me, inquam, nisi te audire vellem, censes haec dicturum f" +
-                "uisse?<i> Sint ista Graecorum;</i>Duo Reges: constructio interrete. Quid, " +
-                "si non sensus modo ei sit datus, verum etiam animus hominis? Aliter enim e" +
-                "xplicari, quod quaeritur, non potest. </p>";
+            var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut " +
+                "enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                "ut aliquip ex ea commodo consequat.";
 
             var email = "a@b.c";
             var adminRoleId = 1;
@@ -153,31 +143,31 @@ namespace VOD.Database.Migrations
                         Title = "Video 1 Title",
                         Description = description.Substring(1, 35),
                         Duration = 50, Thumbnail = "/images/video1.jpg",
-                        Url = "https://www.youtube.com/watch?v=BJFyzpBcaCY"
+                        Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
                     },
                     new Video { ModuleId = moduleId1, CourseId = courseId1,
                         Title = "Video 2 Title",
                         Description = description.Substring(5, 35),
                         Duration = 45, Thumbnail = "/images/video2.jpg",
-                        Url = "https://www.youtube.com/watch?v=BJFyzpBcaCY"
+                        Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
                     },
                     new Video { ModuleId = moduleId1, CourseId = courseId1,
                         Title = "Video 3 Title",
                         Description = description.Substring(10, 35),
                         Duration = 41, Thumbnail = "/images/video3.jpg",
-                        Url = "https://www.youtube.com/watch?v=BJFyzpBcaCY"
+                        Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
                     },
                     new Video { ModuleId = moduleId3, CourseId = courseId2,
                         Title = "Video 4 Title",
                         Description = description.Substring(15, 35),
                         Duration = 41, Thumbnail = "/images/video4.jpg",
-                        Url = "https://www.youtube.com/watch?v=BJFyzpBcaCY"
+                        Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
                     },
                     new Video { ModuleId = moduleId2, CourseId = courseId1,
                         Title = "Video 5 Title",
                         Description = description.Substring(20, 35),
                         Duration = 42, Thumbnail = "/images/video5.jpg",
-                        Url = "https://www.youtube.com/watch?v=BJFyzpBcaCY"
+                        Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
                     }
                 };
                 context.Videos.AddRange(videos);
