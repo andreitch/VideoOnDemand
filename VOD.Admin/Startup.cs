@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VOD.Common.Entities;
 using VOD.Database.Contexts;
+using VOD.Database.Services;
 
 namespace VOD.Admin
 {
@@ -44,7 +45,7 @@ namespace VOD.Admin
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<VODContext>();
 
-
+            services.AddScoped<IDbReadService, DbReadService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
