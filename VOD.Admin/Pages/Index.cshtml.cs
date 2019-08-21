@@ -11,14 +11,22 @@ namespace VOD.Admin.Pages
 {
     public class IndexModel : PageModel
     {
+        #region Properties
         public (CardViewModel Instructors, CardViewModel Users,
                 CardViewModel Courses, CardViewModel Modules,
                 CardViewModel Videos, CardViewModel Downloads) Cards;
         private readonly IDbReadService _db;
+        [TempData] public string Alert { get; set; }
+        #endregion
+
+        #region Constructor
         public IndexModel(IDbReadService db)
         {
             _db = db;
         }
+        #endregion
+
+        #region actions
         public void OnGet()
         {
             var (courses, downloads, instructors, modules, videos, users) = _db.Count();
@@ -73,5 +81,6 @@ namespace VOD.Admin.Pages
                 }
             );
         }
+        #endregion
     }
 }
