@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VOD.Common.Entities;
+using VOD.Common.Services;
 using VOD.Database.Contexts;
 using VOD.Database.Services;
 
@@ -48,7 +50,12 @@ namespace VOD.Admin
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDbReadService, DbReadService>();
             services.AddScoped<IDbWriteService, DbWriteService>();
+            services.AddScoped<IAdminService, AdminEFService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAutoMapper(typeof(Startup), typeof(Instructor),
+                typeof(Course), typeof(Module), typeof(Video),
+                typeof(Download));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
