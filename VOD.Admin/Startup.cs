@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -50,12 +51,21 @@ namespace VOD.Admin
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDbReadService, DbReadService>();
             services.AddScoped<IDbWriteService, DbWriteService>();
-            services.AddScoped<IAdminService, AdminEFService>();
+            services.AddScoped<IAdminService, AdminAPIService>();
+            services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAutoMapper(typeof(Startup), typeof(Instructor),
                 typeof(Course), typeof(Module), typeof(Video),
                 typeof(Download));
+
+            services.AddHttpClient("AdminClient", client => {
+                client.BaseAddress = new Uri("http://localhost:6600");
+                client.Timeout = new TimeSpan(0, 0, 30);
+                client.DefaultRequestHeaders.Clear();
+            }).ConfigurePrimaryHttpMessageHandler(handler => new HttpClientHandler() {
+                AutomaticDecompression = System.Net.DecompressionMethods.GZip
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
