@@ -52,6 +52,7 @@ namespace VOD.Admin
             services.AddScoped<IDbReadService, DbReadService>();
             services.AddScoped<IDbWriteService, DbWriteService>();
             services.AddScoped<IAdminService, AdminAPIService>();
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IHttpClientFactoryService, HttpClientFactoryService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
